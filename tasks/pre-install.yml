@@ -1,0 +1,19 @@
+---
+
+- name: populate debian packages
+  set_fact:
+    system_package_list: "{{ _system_package_list['default'] + _system_package_list[ansible_distribution] }}"
+  when: ansible_os_family == 'Debian'
+
+- name: populate redhat packages
+  set_fact:
+    system_package_list: "{{ _system_package_list['default'] + _system_package_list[ansible_distribution] + _redhat_specific_packages[ansible_distribution_major_version] }}"
+  when: ansible_os_family == 'RedHat'
+
+- name: Install system packages
+  action: >
+    {{ ansible_pkg_mgr }} name={{ system_package_list }} state=present update_cache=yes
+#    vars:
+#      packages: "{{ system_package_list }}"
+  become: yes
+  when: system_package_list is defined

@@ -1,2 +1,8 @@
 ---
-# handlers file for ansible-role-test1
+
+- name: restart dbus for user
+  systemd:
+    state: restarted
+    name: dbus
+    scope: user
+  when: ansible_distribution == 'Debian' and (not ansible_virtualization_type | regex_search("docker|container"))

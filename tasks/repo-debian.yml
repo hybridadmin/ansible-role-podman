@@ -1,0 +1,43 @@
+---
+
+- name: Enable user namespaces
+  template:
+    src: "templates/sysctl.d/00-local-userns.conf.j2"
+    dest: "/etc/sysctl.d/00-local-userns.conf"
+    mode: 0600
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version|int == 10
+
+- name: Enable buster-backports for newer libseccomp2
+  lineinfile:
+    path: "/etc/apt/sources.list"
+    regexp: '.+buster-backports.+'
+    line: "deb http://deb.debian.org/debian buster-backports main"
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version|int == 10
+
+- name: Add repo configuration
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0600
+  with_items:
+    - "{{ repo_template_file }}"
+  when:
+
+- name: Install podman repo release key
+  apt_key:
+    url: "{{ release_key_url }}"
+    state: present
+
+# libseccomp2 fix - https://github.com/containers/podman/issues/7508#issuecomment-746245356
+- name: update apt cache
+  apt:
+    update_cache: yes
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version|int == 10
+
+- name: Install newer version of libseccomp2
+  apt:
+    name: "libseccomp-dev"
+    state: present
+    update_cache: yes
+    default_release: "buster-backports"
+  when: ansible_distribution == 'Debian' and ansible_distribution_major_version|int == 10

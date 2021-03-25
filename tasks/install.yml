@@ -1,0 +1,12 @@
+---
+
+- name: Install podman
+  action: >
+    {{ ansible_pkg_mgr }} name={{ podman_package_list }} state=present update_cache=yes
+  become: yes
+  notify:
+    - restart dbus for user
+  when: podman_package_list is defined
+
+- name: Flush handlers
+  meta: flush_handlers

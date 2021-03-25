@@ -1,2 +1,45 @@
 ---
-# vars file for ansible-role-test1
+
+_system_package_list:
+  default:
+    - gnupg2
+    - slirp4netns
+  Debian:
+    - libfuse3-dev
+    - procps
+  Ubuntu:
+    - libfuse3-dev
+  CentOS:
+    - procps-ng
+    - fuse3-devel
+  Fedora:
+    - procps-ng
+    - fuse3-devel
+
+_redhat_specific_packages:
+  "7":
+    - yum-plugin-copr
+  "8":
+    - "dnf-command(copr)"
+
+podman_package_list:
+  - podman
+
+_repo_template_file:
+  Debian:
+    - { src: "sources.list.d/debian.list.j2", dest: "/etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list" }
+  Ubuntu:
+    - { src: "sources.list.d/ubuntu.list.j2", dest: "/etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list" }
+  CentOS:
+    - { src: "yum.repos.d/centos.repo.j2", dest: "/etc/yum.repos.d/devel:kubic:libcontainers:stable.repo" }
+  Amazon:
+    - { src: "yum.repos.d/amazonlinux.repo.j2", dest: "/etc/yum.repos.d/devel:kubic:libcontainers:stable.repo" }
+
+repo_template_file: "{{ _repo_template_file[ansible_distribution] }}"
+
+release_key_url: |
+    {% if 'Ubuntu' in ansible_distribution %}
+    https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_{{ ansible_distribution_version }}/Release.key
+    {% else %}
+    https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_{{ ansible_distribution_major_version }}/Release.key
+    {% endif %}

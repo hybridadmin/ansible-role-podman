@@ -1,12 +1,15 @@
-Role Name
+podman
 =========
 
-> A brief description of the role goes here.
+> Ansible role to install podman on all supported distros.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* ansible version >= 2.9
+* Ansible Collections:
+  * [`community.general`](https://github.com/ansible-collections/community.general)
+
 
 Role Variables
 --------------
@@ -19,7 +22,7 @@ The variables below can be edited in [`defaults/main.yml`](defaults/main.yml) to
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 
 Example Playbook
@@ -30,7 +33,7 @@ Including an example of how to use your role (for instance, with variables passe
 ```yaml
     - hosts: servers
       roles:
-         - { role: hybridadmin.rolename, x: 42 }
+         - { role: hybridadmin.podman }
 ```
 
 
