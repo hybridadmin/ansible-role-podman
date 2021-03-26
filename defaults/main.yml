@@ -1,3 +1,5 @@
 ---
 
 podman_compose_install: true
+
+podman_buildah_install: true
