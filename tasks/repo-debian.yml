@@ -14,7 +14,6 @@
     mode: 0600
   with_items:
     - "{{ repo_template_file }}"
-  when:
 
 - name: Install podman repo release key
   apt_key:

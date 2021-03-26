@@ -11,7 +11,6 @@ _system_package_list:
   Ubuntu:
     - libfuse3-dev
   CentOS:
-    - podman-docker
     - procps-ng
     - fuse3-devel
   Fedora:
@@ -29,7 +28,7 @@ podman_package_list:
   - podman
 
 podman_compose_info:
-  - { src: "https://raw.githubusercontent.com/containers/podman-compose/devel/podman_compose.py", dest: "/usr/local/bin/podman-compose", perms: "0755" }
+  - { src: "https://raw.githubusercontent.com/containers/podman-compose/devel/podman_compose.py", dest: "/usr/local/bin/podman-compose" }
 
 _repo_template_file:
   Debian:

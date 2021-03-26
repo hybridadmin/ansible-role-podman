@@ -1,30 +1,26 @@
 ---
 
 - name: Check podman-compose exists
-  shell: |
-    set -o pipefail
-    podman-compose --version
-  args:
-      executable: /bin/bash
-  register: current_podman_compose_version
-  changed_when: false
-  failed_when: false
-
-- name: Delete podman-compoe if exists
-  file:
-    path: "{{ podman_compose_info.dest }}"
-    state: absent
+  stat:
+    path: "{{ item.dest }}"
+  register: current_podman_compose
   with_items:
     - "{{ podman_compose_info }}"
+
+- name: Delete podman-compose if exists
+  file:
+    path: "{{ item.item.dest }}"
+    state: absent
+  with_items:
+    - "{{ current_podman_compose.results }}"
+  when: item.stat.exists | bool
   changed_when: false
-  when: >
-    current_podman_compose_version.stdout is defined
 
 - name: Install podman compose
   get_url:
-    url: "{{ podman_compose_info.src }}"
-    dest: "{{ podman_compose_info.dest }}"
-    mode: "{{ podman_compose_info.perms }}"
+    url: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0755
   with_items:
     - "{{ podman_compose_info }}"
   changed_when: false

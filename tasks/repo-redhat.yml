@@ -10,14 +10,6 @@
   changed_when: false
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version| int >= 8
 
-#- name: Install system packages
-#  action: >
-#    {{ ansible_pkg_mgr }} name={{ system_package_list }} state=present update_cache=yes
-#    vars:
-#      packages: "{{ system_package_list }}"
-#  become: yes
-#  when: system_package_list is defined
-
 - name: Enable lsm5/container-selinux
   community.general.copr:
     state: enabled
