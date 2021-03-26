@@ -22,7 +22,7 @@ This installs `podman-compose` when set to `true`
 
     podman_buildah_install: true
 
-`buildah` is installed together with podman when set to `true`.
+`buildah` is installed together with `podman` when set to `true`.
 
 
 Dependencies
