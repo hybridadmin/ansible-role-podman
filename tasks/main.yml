@@ -6,7 +6,7 @@
 
 - include: install.yml
 
-- include: docker-compose.yml
-  when: podman_docker_compose | bool
+- include: podman-compose.yml
+  when: podman_compose_install | bool
 
 - include: configure.yml

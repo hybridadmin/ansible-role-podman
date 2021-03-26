@@ -48,4 +48,4 @@
   systemd:
     name: "podman.socket"
     state: "started"
-  when: podman_docker_compose | bool
+  when: podman_compose_install | bool and ansible_os_family == 'RedHat'

@@ -28,6 +28,9 @@ _redhat_specific_packages:
 podman_package_list:
   - podman
 
+podman_compose_info:
+  - { src: "https://raw.githubusercontent.com/containers/podman-compose/devel/podman_compose.py", dest: "/usr/local/bin/podman-compose", perms: "0755" }
+
 _repo_template_file:
   Debian:
     - { src: "sources.list.d/debian.list.j2", dest: "/etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list" }
@@ -46,6 +49,3 @@ release_key_url: |
     {% else %}
     https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_{{ ansible_distribution_major_version }}/Release.key
     {% endif %}
-
-
-docker_compose_path: "/usr/local/bin/docker-compose"

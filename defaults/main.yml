@@ -1,3 +1,3 @@
 ---
 
-podman_docker_compose: true
+podman_compose_install: false
