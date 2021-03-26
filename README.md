@@ -14,9 +14,15 @@ Requirements
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
 The variables below can be edited in [`defaults/main.yml`](defaults/main.yml) to customize the deployment:
+
+    podman_compose_install: true
+
+This installs `podman-compose` when set to `true`
+
+    podman_buildah_install: true
+
+`buildah` is installed together with podman when set to `true`.
 
 
 Dependencies
@@ -32,6 +38,9 @@ Including an example of how to use your role (for instance, with variables passe
 
 ```yaml
     - hosts: servers
+      vars:
+        podman_compose_install: true
+        podman_buildah_install: true
       roles:
          - { role: hybridadmin.podman }
 ```
