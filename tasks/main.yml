@@ -5,3 +5,8 @@
 - include: repo-{{ ansible_os_family | lower }}.yml
 
 - include: install.yml
+
+- include: docker-compose.yml
+  when: podman_docker_compose | bool
+
+- include: configure.yml

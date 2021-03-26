@@ -2,6 +2,7 @@
 
 _system_package_list:
   default:
+    - curl
     - gnupg2
     - slirp4netns
   Debian:
@@ -10,9 +11,11 @@ _system_package_list:
   Ubuntu:
     - libfuse3-dev
   CentOS:
+    - podman-docker
     - procps-ng
     - fuse3-devel
   Fedora:
+    - podman-docker
     - procps-ng
     - fuse3-devel
 
@@ -43,3 +46,6 @@ release_key_url: |
     {% else %}
     https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/Debian_{{ ansible_distribution_major_version }}/Release.key
     {% endif %}
+
+
+docker_compose_path: "/usr/local/bin/docker-compose"

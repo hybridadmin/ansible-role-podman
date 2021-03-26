@@ -1,0 +1,51 @@
+---
+# https://github.com/containers/podman/blob/master/docs/tutorials/rootless_tutorial.md
+
+- name: Set storage driver to overlay
+  lineinfile:
+    path: "/etc/containers/storage.conf"
+    regexp: '^driver\ =\ \"\w+\"$'
+    line: 'driver = "overlay"'
+
+- name: Set fuse-overlayfs executable
+  lineinfile:
+    path: "/etc/containers/storage.conf"
+    regexp: '#mount_program'
+    line: 'mount_program = "/usr/bin/fuse-overlayfs"'
+
+- name: enumerate max gid
+  set_fact:
+    max_user_gid: "{{ lookup('pipe',\"cat /etc/login.defs | grep -E '^GID_MAX' | awk '{print $2}'\") }}"
+
+- name: Enable kernel tweaks
+  template:
+    src: "sysctl.d/00-podman.conf.j2"
+    dest: "/etc/sysctl.d/00-podman.conf"
+    mode: 0600
+  notify:
+    - Reload sysctl
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: update /etc/subuid
+  lineinfile:
+    path: "/etc/subuid"
+    regexp: '^{{ ansible_user_id }}'
+    line: "{{ ansible_user_id }}:{{ lookup(\"pipe\", \"id -u \" + ansible_user_id) }}:65536"
+  become: yes
+  when: not ansible_user_id == 'root'
+
+- name: update /etc/subgid
+  lineinfile:
+    path: "/etc/subgid"
+    regexp: '^{{ ansible_user_id }}'
+    line: "{{ ansible_user_id }}:{{ lookup(\"pipe\", \"id -g \" + ansible_user_id) }}:65536"
+  become: yes
+  when: not ansible_user_id == 'root'
+
+- name: Start podman.socket service
+  systemd:
+    name: "podman.socket"
+    state: "started"
+  when: podman_docker_compose | bool
