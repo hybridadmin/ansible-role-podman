@@ -7,15 +7,19 @@ _system_package_list:
     - slirp4netns
   Debian:
     - libfuse3-dev
+    - uidmap
     - procps
   Ubuntu:
     - libfuse3-dev
+    - uidmap
   CentOS:
     - procps-ng
     - fuse3-devel
+    - shadow-utils
   Fedora:
     - podman-docker
     - procps-ng
+    - shadow-utils
     - fuse3-devel
 
 _redhat_specific_packages:

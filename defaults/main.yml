@@ -2,4 +2,6 @@
 
 podman_compose_install: true
 
-podman_buildah_install: true
+podman_buildah_install: false
+
+podman_img_install: true

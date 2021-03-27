@@ -24,6 +24,10 @@ This installs `podman-compose` when set to `true`
 
 `buildah` is installed together with `podman` when set to `true`.
 
+    podman_img_install: true
+
+This installs `img` together with `podman` when set to `true`.
+
 
 Dependencies
 ------------
@@ -41,6 +45,7 @@ Including an example of how to use your role (for instance, with variables passe
       vars:
         podman_compose_install: true
         podman_buildah_install: true
+        podman_img_install: true
       roles:
          - { role: hybridadmin.podman }
 ```
