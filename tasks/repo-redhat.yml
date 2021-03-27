@@ -8,7 +8,7 @@
       executable: /bin/bash
   become: true
   changed_when: false
-  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version| int >= 8
+  when: (ansible_distribution is regex('CentOS') and ansible_distribution_major_version| int >= 8)
 
 - name: Enable lsm5/container-selinux
   community.general.copr:
@@ -20,7 +20,7 @@
   community.general.copr:
     state: enabled
     name: "rhcontainerbot/container-selinux"
-  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version| int >= 8
+  when: (ansible_distribution is regex('CentOS') and ansible_distribution_major_version| int >= 8)
 
 - name: add repo configuration
   template:
@@ -29,3 +29,4 @@
     mode: 0600
   with_items:
     - "{{ repo_template_file }}"
+  when: not ansible_distribution == 'Fedora'

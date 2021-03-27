@@ -17,7 +17,6 @@ _system_package_list:
     - fuse3-devel
     - shadow-utils
   Fedora:
-    - podman-docker
     - procps-ng
     - shadow-utils
     - fuse3-devel
