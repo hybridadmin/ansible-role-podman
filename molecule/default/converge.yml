@@ -2,6 +2,7 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include ansible-role-podman"
+    - name: "Include podman role"
       include_role:
-        name: "ansible-role-podman"
+        name: "hybridadmin.podman"
+#        name: "ansible-role-podman"
