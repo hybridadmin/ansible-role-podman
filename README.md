@@ -1,6 +1,8 @@
 podman
 =========
 
+[![CI](https://github.com/hybridadmin/ansible-role-podman/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/hybridadmin/ansible-role-podman/actions/workflows/build.yml)
+
 > Ansible role to install podman on all supported distros.
 
 Requirements
