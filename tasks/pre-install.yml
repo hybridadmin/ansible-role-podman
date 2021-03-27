@@ -5,9 +5,6 @@
   when: ansible_os_family == 'Debian'
 
 - name: populate redhat packages
-#  set_fact:
-#    system_package_list: "{{ _system_package_list['default'] + _system_package_list[ansible_distribution] + _redhat_specific_packages[ansible_distribution_major_version] }}"
-#  when: ansible_distribution == 'CentOS'
   set_fact:
     system_package_list: |
           {% if ansible_distribution == 'Fedora' %}
@@ -16,11 +13,6 @@
           {{ _system_package_list['default'] + _system_package_list[ansible_distribution] + _redhat_specific_packages[ansible_distribution_major_version] }}
           {% endif %}
   when: ansible_os_family == 'RedHat'
-
-#- name: populate fedora packages
-#  set_fact:
-#    system_package_list: "{{ _system_package_list['default'] + _system_package_list[ansible_distribution] }}"
-#  when: ansible_distribution == 'Fedora'
 
 - name: remove slirp4netns/libfuse3-dev packages for ubuntu bionic
   set_fact:
