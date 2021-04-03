@@ -19,8 +19,8 @@
 
 - name: Enable kernel tweaks
   template:
-    src: "sysctl.d/00-podman.conf.j2"
-    dest: "/etc/sysctl.d/00-podman.conf"
+    src: "sysctl.d/00-rootless.conf.j2"
+    dest: "/etc/sysctl.d/00-rootless.conf"
     mode: 0600
   notify:
     - Reload sysctl

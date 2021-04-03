@@ -4,10 +4,10 @@
 podman_rootless_mode: true
 
 # Install podman compose plugin
-podman_compose_install: true
+podman_compose_install: false
 
 # Install and configure buildah as podman builder
 podman_buildah_install: false
 
 # Install img as podman builder
-podman_img_install: true
+podman_img_install: false
