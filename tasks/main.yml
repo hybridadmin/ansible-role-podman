@@ -6,10 +6,11 @@
 
 - include: install.yml
 
+- include: podman-rootless.yml
+  when: podman_rootless_mode | bool
+
 - include: podman-compose.yml
   when: podman_compose_install | bool
 
 - include: img.yml
   when: podman_img_install | bool
-
-- include: configure.yml
