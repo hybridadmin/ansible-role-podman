@@ -24,3 +24,8 @@
   with_items:
     - "{{ podman_compose_info }}"
   changed_when: false
+
+- name: Start podman.socket service
+  systemd:
+    name: "podman.socket"
+    state: "started"

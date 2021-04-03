@@ -1,6 +1,12 @@
 ---
 # https://github.com/containers/podman/blob/master/docs/tutorials/rootless_tutorial.md
 
+- name: Set default OCI runtime - crun
+  lineinfile:
+    path: "/usr/share/containers/containers.conf"
+    regexp: '(^#\ runtime\ =.*"crun"$)'
+    line: 'runtime = "crun"'
+
 - name: Set storage driver to overlay
   lineinfile:
     path: "/etc/containers/storage.conf"
@@ -12,6 +18,12 @@
     path: "/etc/containers/storage.conf"
     regexp: '#mount_program'
     line: 'mount_program = "/usr/bin/fuse-overlayfs"'
+
+- name: Set user rootless storage path
+  lineinfile:
+    path: "/etc/containers/storage.conf"
+    regexp: '(^#\ rootless_storage_path.*)'
+    line: 'rootless_storage_path = "$HOME/.local/share/containers/storage"'
 
 - name: enumerate max gid
   set_fact:
@@ -43,9 +55,3 @@
     line: "{{ ansible_user_id }}:{{ lookup(\"pipe\", \"id -g \" + ansible_user_id) }}:65536"
   become: yes
   when: not ansible_user_id == 'root'
-
-- name: Start podman.socket service
-  systemd:
-    name: "podman.socket"
-    state: "started"
-  when: podman_compose_install | bool

@@ -4,6 +4,12 @@
 
 - include: repo-{{ ansible_os_family | lower }}.yml
 
+- include: podman-fuse-overlayfs.yml
+  when: ansible_distribution_release is regex('bionic')
+
+- include: podman-slirp4netns.yml
+  when: ansible_distribution_release is regex('bionic')
+
 - include: install.yml
 
 - include: podman-rootless.yml

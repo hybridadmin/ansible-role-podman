@@ -14,7 +14,7 @@
           {% endif %}
   when: ansible_os_family == 'RedHat'
 
-- name: remove slirp4netns/libfuse3-dev packages for ubuntu bionic
+- name: skip slirp4netns/libfuse3-dev packages for ubuntu bionic
   set_fact:
     system_package_list: "{{ system_package_list | difference('slirp4netns,libfuse3-dev') }}"
   when: ansible_distribution_release is regex('bionic')
