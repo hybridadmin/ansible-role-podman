@@ -1,0 +1,21 @@
+---
+
+- name: Check cgroups v2 is enabled
+  shell: |
+    set -o pipefail
+    grep GRUB_CMDLINE_LINUX ~/test.conf | grep -c "systemd.unified_cgroup_hierarchy=1"
+  args:
+    executable: /bin/bash
+  changed_when: False
+  register: cgroup_version_status
+  failed_when: cgroup_version_status.rc > 1
+
+- name: Enable cgroups v2
+  lineinfile:
+    dest: "~/test.conf"
+    regexp: 'GRUB_CMDLINE_LINUX="(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 systemd.unified_cgroup_hierarchy=1"'
+    backrefs: yes
+  when: cgroup_version_status.stdout is defined and cgroup_version_status.stdout | int == 0
+  notify:
+    - update grub

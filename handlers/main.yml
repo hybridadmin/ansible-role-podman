@@ -10,9 +10,17 @@
 - name: Reload sysctl
   shell: |
     set -o pipefail
-    sysctl -p /etc/sysctl.d/00-podman.conf
+    sysctl -p /etc/sysctl.d/00-rootless.conf
   args:
       executable: /bin/bash
   become: true
   changed_when: false
   ignore_errors: yes
+
+- name: update grub
+  shell: |
+    set -o pipefail
+    update-grub2
+  args:
+    executable: /bin/bash
+  changed_when: False
