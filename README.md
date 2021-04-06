@@ -18,17 +18,21 @@ Role Variables
 
 The variables below can be edited in [`defaults/main.yml`](defaults/main.yml) to customize the deployment:
 
+    podman_rootless_mode: true
+
+Install `podman` in rootless mode when set to `true`
+
     podman_compose_install: true
 
 This installs `podman-compose` when set to `true`
 
     podman_buildah_install: true
 
-`buildah` is installed together with `podman` when set to `true`.
+`buildah` is installed together with `podman` when set to `true`
 
     podman_img_install: true
 
-This installs `img` together with `podman` when set to `true`.
+This installs `img` together with `podman` when set to `true`
 
 
 Dependencies

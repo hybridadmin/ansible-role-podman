@@ -16,12 +16,10 @@ _system_package_list:
     - procps-ng
     - fuse3-devel
     - shadow-utils
-#    - iptables
   Fedora:
     - procps-ng
     - shadow-utils
     - fuse3-devel
-#    - iptables
 
 _redhat_specific_packages:
   "7":
