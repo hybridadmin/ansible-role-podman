@@ -1,6 +1,6 @@
 ---
 
-- name: Enable buster-backports for newer libseccomp2
+- name: Enable buster-backports for libseccomp2
   lineinfile:
     path: "/etc/apt/sources.list"
     regexp: '.+buster-backports.+'
@@ -21,9 +21,10 @@
     state: present
 
 # libseccomp2 fix - https://github.com/containers/podman/issues/7508#issuecomment-746245356
-- name: update apt cache
+- name: Update APT cache
   apt:
     update_cache: yes
+  changed_when: false
 
 - name: Install newer version of libseccomp2
   apt:

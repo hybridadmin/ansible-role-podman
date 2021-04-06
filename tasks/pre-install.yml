@@ -1,6 +1,6 @@
 ---
 
-- name: populate debian packages
+- name: Populate debian packages
   set_fact:
     system_package_list: "{{ _system_package_list['default'] + _system_package_list[ansible_distribution] }}"
   when: ansible_os_family == 'Debian'
@@ -15,7 +15,7 @@
           {% endif %}
   when: ansible_os_family == 'RedHat'
 
-- name: skip slirp4netns/libfuse3-dev packages for ubuntu bionic
+- name: Skip slirp4netns/libfuse3-dev packages for ubuntu bionic
   set_fact:
     system_package_list: "{{ system_package_list | difference('slirp4netns,libfuse3-dev') }}"
   when: ansible_distribution_release is regex('bionic')

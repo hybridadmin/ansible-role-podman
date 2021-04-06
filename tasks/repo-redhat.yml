@@ -1,6 +1,6 @@
 ---
 
-- name: redhat - disable container-tools modules
+- name: Redhat - disable container-tools modules
   shell: |
     set -o pipefail
     dnf module disable container-tools -qy
@@ -22,7 +22,7 @@
     name: "rhcontainerbot/container-selinux"
   when: (ansible_distribution is regex('CentOS') and ansible_distribution_major_version| int >= 8)
 
-- name: add repo configuration
+- name: Add repo configuration
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"

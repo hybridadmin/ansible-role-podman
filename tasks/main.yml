@@ -1,28 +1,38 @@
 ---
 
-- include: cgroups-v2.yml
+- name: Cgroups v2 configuration steps
+  include_tasks: cgroups-v2.yml
   when: ansible_kernel.split('.') >= '5.2'.split('.') and not ansible_virtualization_type | regex_search("docker|container")
 
-- include: pre-install.yml
+- name: Pre-installation steps
+  include_tasks: pre-install.yml
 
-- include: repo-{{ ansible_os_family | lower }}.yml
+- name: Repository configuation steps
+  include_tasks: repo-{{ ansible_os_family | lower }}.yml
 
-- include: podman-fuse-overlayfs.yml
+- name: Fuse-overlayfs configuration steps
+  include_tasks: podman-fuse-overlayfs.yml
   when: ansible_distribution_release is regex('bionic')
 
-- include: podman-slirp4netns.yml
+- name: Slirp4netns configuration steps
+  include_tasks: podman-slirp4netns.yml
   when: ansible_distribution_release is regex('bionic')
 
-- include: crun.yml
+- name: Crun installation steps
+  include_tasks: crun.yml
   when: ansible_distribution == 'CentOS' and ansible_distribution_major_version | int <= 7
 
-- include: install.yml
+- name: Main installation steps
+  include_tasks: install.yml
 
-- include: podman-rootless.yml
+- name: Rootless mode configuration steps
+  include_tasks: podman-rootless.yml
   when: podman_rootless_mode | bool
 
-- include: podman-compose.yml
+- name: Install podman-compose steps
+  include_tasks: podman-compose.yml
   when: podman_compose_install | bool
 
-- include: img.yml
+- name: Install img builder steps
+  include_tasks: img.yml
   when: podman_img_install | bool

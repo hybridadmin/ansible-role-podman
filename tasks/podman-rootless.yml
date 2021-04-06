@@ -25,7 +25,7 @@
     regexp: '(^#\ rootless_storage_path.*)'
     line: 'rootless_storage_path = "$HOME/.local/share/containers/storage"'
 
-- name: enumerate max gid
+- name: Enumerate max gid
   set_fact:
     max_user_gid: "{{ lookup('pipe','cut -f 3 -d: /etc/passwd | sort -n | tail -n 1') }}"
 
@@ -40,7 +40,7 @@
 - name: Flush handlers
   meta: flush_handlers
 
-- name: update /etc/subuid
+- name: Update /etc/subuid
   lineinfile:
     path: "/etc/subuid"
     regexp: '^{{ ansible_user_id }}'
@@ -48,7 +48,7 @@
   become: yes
   when: not ansible_user_id == 'root'
 
-- name: update /etc/subgid
+- name: Update /etc/subgid
   lineinfile:
     path: "/etc/subgid"
     regexp: '^{{ ansible_user_id }}'
