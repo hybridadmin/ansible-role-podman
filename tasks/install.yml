@@ -5,7 +5,7 @@
     podman_package_list: "{{ podman_package_list + ['buildah'] }}"
   when: podman_buildah_install | bool
 
-- name: Install podman
+- name: Install podman packages
   action: >
     {{ ansible_pkg_mgr }} name={{ podman_package_list }} state=present update_cache=yes
   become: yes
