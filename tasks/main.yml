@@ -2,9 +2,8 @@
 
 - name: Cgroups v2 configuration steps
   include_tasks: cgroups-v2.yml
-#  when: ansible_kernel.split('.') >= '5.2'.split('.') and not ansible_virtualization_type | regex_search("docker|container")
   when: >
-    (ansible_kernel.split('.')[0:3] | join('.')) is version('5.2', operator='gt', strict=True)
+    (ansible_kernel.split('.')[0:2] | join('.')) is version('5.2', operator='gt', strict=True)
     and not ansible_virtualization_type | regex_search("docker|container")
 
 - name: Pre-installation steps
