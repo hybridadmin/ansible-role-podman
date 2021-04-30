@@ -5,4 +5,3 @@
     - name: "Include podman role"
       include_role:
         name: "hybridadmin.podman"
-#        name: "ansible-role-podman"
