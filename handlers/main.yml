@@ -15,7 +15,6 @@
       executable: /bin/bash
   become: true
   changed_when: false
-  ignore_errors: yes
 
 - name: update grub
   shell: |
