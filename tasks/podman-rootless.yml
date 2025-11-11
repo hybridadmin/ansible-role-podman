@@ -7,23 +7,25 @@
     regexp: '(^#\ runtime\ =.*"crun"$)'
     line: 'runtime = "crun"'
 
-- name: Set storage driver to overlay
-  lineinfile:
-    path: "/etc/containers/storage.conf"
-    regexp: '^driver\ =\ \"\w+\"$'
-    line: 'driver = "overlay"'
+# TODO: Overlay driver
+#- name: Set storage driver to overlay
+#  lineinfile:
+#    path: "/etc/containers/storage.conf"
+#    regexp: '^driver\ =\ \"\w+\"$'
+#    line: 'driver = "overlay"'
+#    create: true
 
-- name: Set fuse-overlayfs executable
-  lineinfile:
-    path: "/etc/containers/storage.conf"
-    regexp: '#mount_program'
-    line: 'mount_program = "/usr/bin/fuse-overlayfs"'
+#- name: Set fuse-overlayfs executable
+#  lineinfile:
+#    path: "/etc/containers/storage.conf"
+#    regexp: '#mount_program'
+#    line: 'mount_program = "/usr/bin/fuse-overlayfs"'
 
-- name: Set user rootless storage path
-  lineinfile:
-    path: "/etc/containers/storage.conf"
-    regexp: '(^#\ rootless_storage_path.*)'
-    line: 'rootless_storage_path = "$HOME/.local/share/containers/storage"'
+#- name: Set user rootless storage path
+#  lineinfile:
+#    path: "/etc/containers/storage.conf"
+#    regexp: '(^#\ rootless_storage_path.*)'
+#    line: 'rootless_storage_path = "$HOME/.local/share/containers/storage"'
 
 - name: Enumerate max gid
   set_fact:

@@ -27,6 +27,9 @@ _redhat_specific_packages:
   "8":
     - "dnf-command(copr)"
 
+required_dirs:
+  - { name: "/etc/containers" }
+
 podman_package_list:
   - podman
 

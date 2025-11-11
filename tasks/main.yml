@@ -6,12 +6,12 @@
     (ansible_kernel.split('.')[0:2] | join('.')) is version('5.2', operator='gt', strict=True)
     and not ansible_virtualization_type | regex_search("docker|container")
 
-- name: Create /etc/sysctl.d directory
-  file:
-    path: "/etc/sysctl.d"
-    state: directory
-    mode: '0755'
-  when: ansible_distribution == 'Fedora' and ansible_distribution_major_version == "34"
+#- name: Create /etc/sysctl.d directory
+#  file:
+#    path: "/etc/sysctl.d"
+#    state: directory
+#    mode: '0755'
+#  when: ansible_distribution == 'Fedora' and ansible_distribution_major_version == "34"
 
 - name: Pre-installation steps
   include_tasks: pre-install.yml
@@ -19,17 +19,17 @@
 - name: Repository configuation steps
   include_tasks: repo-{{ ansible_os_family | lower }}.yml
 
-- name: Fuse-overlayfs configuration steps
-  include_tasks: podman-fuse-overlayfs.yml
-  when: ansible_distribution_release is regex('bionic')
+#- name: Fuse-overlayfs configuration steps
+#  include_tasks: podman-fuse-overlayfs.yml
+#  when: ansible_distribution_release is regex('bionic')
 
-- name: Slirp4netns configuration steps
-  include_tasks: podman-slirp4netns.yml
-  when: ansible_distribution_release is regex('bionic')
+#- name: Slirp4netns configuration steps
+#  include_tasks: podman-slirp4netns.yml
+#  when: ansible_distribution_release is regex('bionic')
 
-- name: Crun installation steps
-  include_tasks: crun.yml
-  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version | int <= 7
+#- name: Crun installation steps
+#  include_tasks: crun.yml
+#  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version | int <= 7
 
 - name: Main installation steps
   include_tasks: install.yml

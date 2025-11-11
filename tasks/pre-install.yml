@@ -1,5 +1,13 @@
 ---
 
+- name: Create required directories
+  file:
+    path: "{{ item.name }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - "{{ required_dirs }}"
+
 - name: Populate debian packages
   set_fact:
     system_package_list: "{{ _system_package_list['default'] + _system_package_list[ansible_distribution] }}"
@@ -15,10 +23,10 @@
           {% endif %}
   when: ansible_os_family == 'RedHat'
 
-- name: Skip slirp4netns/libfuse3-dev packages for ubuntu bionic
-  set_fact:
-    system_package_list: "{{ system_package_list | difference('slirp4netns,libfuse3-dev') }}"
-  when: ansible_distribution_release is regex('bionic')
+#- name: Skip slirp4netns/libfuse3-dev packages for ubuntu bionic
+#  set_fact:
+#    system_package_list: "{{ system_package_list | difference('slirp4netns,libfuse3-dev') }}"
+#  when: ansible_distribution_release is regex('bionic')
 
 - name: Install system packages
   action: >
