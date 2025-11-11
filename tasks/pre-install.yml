@@ -1,5 +1,13 @@
 ---
 
+- name: Create required directories
+  file:
+    path: "{{ item.name }}"
+    state: directory
+    mode: '0755'
+  with_items:
+    - "{{ required_dirs }}"
+
 - name: Populate debian packages
   set_fact:
     system_package_list: "{{ _system_package_list['default'] + _system_package_list[ansible_distribution] }}"
