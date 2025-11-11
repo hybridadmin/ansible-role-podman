@@ -7,11 +7,13 @@
     regexp: '(^#\ runtime\ =.*"crun"$)'
     line: 'runtime = "crun"'
 
-- name: Set storage driver to overlay
-  lineinfile:
-    path: "/etc/containers/storage.conf"
-    regexp: '^driver\ =\ \"\w+\"$'
-    line: 'driver = "overlay"'
+# TODO: Overlay driver
+#- name: Set storage driver to overlay
+#  lineinfile:
+#    path: "/etc/containers/storage.conf"
+#    regexp: '^driver\ =\ \"\w+\"$'
+#    line: 'driver = "overlay"'
+#    create: true
 
 - name: Set fuse-overlayfs executable
   lineinfile:
